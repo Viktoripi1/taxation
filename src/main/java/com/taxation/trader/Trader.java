@@ -1,9 +1,18 @@
 package com.taxation.trader;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table
+@ToString
+@NoArgsConstructor
+@Data
 public class Trader {
     @Id
     @SequenceGenerator(
@@ -16,48 +25,11 @@ public class Trader {
             generator = "trader_seq"
     )
     private Long traderId;
-    private float taxRate;
-    private float taxAmount;
+    private BigDecimal taxRate;
+    private BigDecimal taxAmount;
 
-    public Trader() {
-    }
-
-    public Trader(float taxRate, float taxAmount) {
+    public Trader(BigDecimal taxRate, BigDecimal taxAmount) {
         this.taxRate = taxRate;
         this.taxAmount = taxAmount;
     }
-
-    public Long getTraderId() {
-        return traderId;
-    }
-
-    public void setTraderId(Long traderId) {
-        this.traderId = traderId;
-    }
-
-    public float getTaxRate() {
-        return taxRate;
-    }
-
-    public void setTaxRate(float taxRate) {
-        this.taxRate = taxRate;
-    }
-
-    public float getTaxAmount() {
-        return taxAmount;
-    }
-
-    public void setTaxAmount(float taxAmount) {
-        this.taxAmount = taxAmount;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Trader{" +
-                "traderId=" + traderId +
-                ", taxRate=" + taxRate +
-                '}';
-    }
-
 }
