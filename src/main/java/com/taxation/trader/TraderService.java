@@ -2,6 +2,7 @@ package com.taxation.trader;
 
 import com.taxation.calculation.CalculationService;
 import com.taxation.calculation.TaxationInput;
+import com.taxation.exception.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class TraderService {
 
     public Trader getTraderByID(Long traderId) {
         return traderRepository.findById(traderId).orElseThrow(() ->
-                new IllegalStateException("Trader with id "+ traderId +" doesn't exist!"));
+                new DataNotFoundException("Trader with id "+ traderId +" doesn't exist!"));
     }
 
 
@@ -38,7 +39,7 @@ public class TraderService {
 
     public void deleteTrader(Long traderId) {
         if (!traderRepository.existsById(traderId)) {
-            throw new IllegalStateException("Trader doesn't exist!");
+            throw new DataNotFoundException("Trader doesn't exist!");
         }
         traderRepository.deleteById(traderId);
     }
