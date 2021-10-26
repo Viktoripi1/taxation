@@ -41,7 +41,7 @@ public class TraderController {
     }
 
     @PostMapping(path = "/taxation")
-    public ResponseEntity<Object> calculateTaxation(@RequestBody TaxationInput taxInput) {
+    public ResponseEntity<TaxationOutput> calculateTaxation(@RequestBody TaxationInput taxInput) {
         return traderService.calculateTaxation(taxInput);
     }
 

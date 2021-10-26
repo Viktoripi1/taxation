@@ -2,7 +2,9 @@ package com.taxation.trader;
 
 import com.taxation.calculation.CalculationService;
 import com.taxation.calculation.TaxationInput;
+import com.taxation.calculation.TaxationOutput;
 import com.taxation.exception.DataNotFoundException;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@ToString
 public class TraderService {
 
     private final TraderRepository traderRepository;
@@ -56,8 +59,8 @@ public class TraderService {
         }
     }
 
-    public ResponseEntity<Object> calculateTaxation(TaxationInput taxationInput){
+    public ResponseEntity<TaxationOutput> calculateTaxation(TaxationInput taxationInput){
         Trader trader = traderRepository.getById(taxationInput.getTraderID());
-        return calculationService.calculate(taxationInput,trader);
+        return ResponseEntity.ok(calculationService.calculate(taxationInput,trader));
     }
 }

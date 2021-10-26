@@ -17,5 +17,4 @@ public class TaxationInput {
     private BigDecimal playedAmount;
     private BigDecimal odd;
 
-
 }

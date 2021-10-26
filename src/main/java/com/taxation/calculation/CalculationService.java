@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalculationService {
 
-    public ResponseEntity<Object> calculate(TaxationInput taxationInput, Trader trader) {
-        try {
-            if (trader != null) {
-                TaxationOutput output = new TaxationOutput();
-                output = output.calculate(taxationInput, trader);
-                return new ResponseEntity<>(output, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("TraderID not found", HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public TaxationOutput calculate(TaxationInput input, Trader trader) {
+        TaxationOutput output = new TaxationOutput();
+
+        output.setPossibleReturnAmount(input.getPlayedAmount().multiply(input.getOdd()));
+        output.setPossibleReturnAmountBefTax(output.getPossibleReturnAmount().multiply(trader.getTaxRate()));
+        output.setPossibleReturnAmountAfterTax(output.getPossibleReturnAmount()
+                .subtract(output.getPossibleReturnAmountBefTax()));
+        output.setTaxRate(trader.getTaxRate());
+        output.setTaxAmount(trader.getTaxAmount());
+
+        return output;
     }
+
 }

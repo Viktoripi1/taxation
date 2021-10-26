@@ -20,13 +20,4 @@ public class TaxationOutput {
     private BigDecimal taxRate;
     private BigDecimal taxAmount;
 
-    public TaxationOutput calculate(TaxationInput input, Trader trader) {
-        TaxationOutput output = new TaxationOutput();
-        output.setPossibleReturnAmount(input.getPlayedAmount().multiply(input.getOdd()));
-        output.setPossibleReturnAmountBefTax(output.possibleReturnAmount.multiply(trader.getTaxRate()));
-        output.setPossibleReturnAmountAfterTax(output.possibleReturnAmount.subtract(output.possibleReturnAmountBefTax));
-        output.taxRate = trader.getTaxRate();
-        output.taxAmount = trader.getTaxAmount();
-        return output;
-    }
 }
